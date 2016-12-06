@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Job specific setting
+filter=pbm2eps9
+ghostscript=gs
+hmul=1
+hdiv=1
+vmul=1
+vdiv=1
+hquality=1
+vquality=1
+pageoffset=0
+
+# Printer-specific setting 
+hdpi=60
+vdpi=72
+
+case $hquality in
+1) ;;
+2) hmul=`expr $hmul '*' 2`;;
+3) hmul=`expr $hmul '*' 2`;;
+4) hmul=`expr $hmul '*' 4`;;
+esac
+
+case $vquality in
+1) ;;
+2) vmul=`expr $vmul '*' 3`
+   vdiv=`expr $vdiv '*' 2`;;
+3) vmul=`expr $vmul '*' 3`;;
+esac
+
+hdpi=`expr $hdpi '*' $hmul / $hdiv`
+vdpi=`expr $vdpi '*' $vmul / $vdiv`
+
+$ghostscript -q -r"$hdpi"x$vdpi -dNOPAUSE -dBATCH -sDEVICE=pbmraw -sOutputFile=- - | $filter $hquality $vquality
+

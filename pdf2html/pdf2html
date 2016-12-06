@@ -1,0 +1,33 @@
+#!/bin/bash
+# (c) 2001 Karel 'Clock' Kulhavy
+# Toggle invert (several lines below) if you want to change black on white
+# to white on black.
+
+filter='pbm2png'
+ghostscript='gs'
+dpi=10
+basename='doses'
+titlestring='Lecture notes Distributed Systems'
+bottom='<hr>Send comments to <a href="mailto:clock@atrey.karlin.mff.cuni.cz">Clock</a>'
+pageoffset='0'
+invert='0'
+
+PATH=$PATH:./
+hdpi=`expr $dpi '*' 17`
+vdpi=`expr $dpi '*' 15`
+start=$2
+if [ "$start" = "" ]; then
+ start=0
+fi
+start1=`expr $start + 1`
+
+pname="/tmp/.pdf2html_pipe_$$"
+function delete () { rm -f $pname; }
+trap delete SIGINT
+
+rm -f $pname
+mkfifo $pname
+$ghostscript -q -dFirstPage=$start1 -dNOPAUSE -dBATCH -sDEVICE=pbmraw -sOutputFile="$pname" -r"$hdpi"x"$vdpi" $1 &
+$filter "$dpi" "$basename" "$titlestring" "$bottom" "$pageoffset" "$pname" $start $invert
+rm -f $pname
+
