@@ -15,7 +15,7 @@ pbm2eps9: pbm2eps9.o printer.o
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(PROGRAMS) *.o *~
+	rm -f pbm2png pbm2eps9 *.o
 
 .PHONY: all clean
 

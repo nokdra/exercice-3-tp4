@@ -7,15 +7,15 @@ int main(void)
   
   printf("Entrez un nombre\n");
   scanf("%d",&size);
-
+  p = malloc(sizeof(int)*size);
   for(i = 0 ; i< size ; i++)
     p[i] = i ;
   
-  free(p);
-  
-/* 
-  for(i = 0 ; i< size ; i++)
+ 
+ for(i = 0 ; i< size ; i++)
      sum += p[i]; 
-*/  
+
+ free(p);
+ 
   return EXIT_SUCCESS;     
 }

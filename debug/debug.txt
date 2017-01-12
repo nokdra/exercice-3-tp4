@@ -1,0 +1,8 @@
+2) aucune erreur n'a été détecté
+3) il est ecrit que a la fin il n'y a pas de bit ni de block en utilisation a la fin du programme.
+il est egalement dit qu'il n'y a eu aucune allocation aucun free et aucun bytes allouer.
+5) à la ligne 6. valgrind nous dit quon essaye d'acceder a la region 0x0.
+6)il fallait initialiser p avec un malloc
+7)on utilisait p apres lavoir free il faut decaller le free
+8)valgrind nous dit qu'il y a un malloc qui n'a pas été free.
+9)il n'y a pas de ligne indiqué mais il dit qu'il y a une fuite mémoire il faut donc free le p
